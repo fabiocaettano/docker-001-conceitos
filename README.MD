@@ -140,9 +140,21 @@ http://ipDaVm:8080
 
 ## POSTGREE
 
+1. Criar o container com bancod de dados PostGree:
+
 ``` bash
 docker container run -d -p 5432:5432 -e POSTGRES_DB=aula -e POSTGRES_USER=iniciativadevops -e POSTGRES_PASSWORD=Iniciativa1234 postgres
 ```
 
-DBeaver CE
+2. Na maqunian utilize o aplicatico DBeaver CE, ele é uma aplictivo para acessar diversas bases de dados.
+
+3. Destruir o container:
+```
+docker container ls
+docker-container rm -f idDoContainer
+```
+
+
+
+
 
