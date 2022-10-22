@@ -156,14 +156,19 @@ docker-container rm -f idDoContainer
 
 ## DockerFile
 
-O dDockerfile é como se fosse uma receita.
+O Dockerfile é como se fosse uma receita para criação das imagens.
+
 O FROM sinaliza qual imagem vai ser criada.
 O RUN executa comandos no bash do container.
-Cada linha é uma camada, assim a um reaproveitamento do Docker ao criar nova imagens com base nesse DockerFile.
-Otimização de espaços pois aquilo que foi construido.
-Mas se houver alteração na instruções do Dockerfile, a partir daquele ponto será criado novas camadas.
+Mas ha outros comandos utilizados no Dockerfile: W
 
-Exemplo 1:
+Cada linha é uma camada (somente leitura), e o container agrupa estas camadas e nele é possivel realizar leitura e escrita.
+
+Assim a um reaproveitamento do Docker ao criar nova imagens, aproveita as camadas já criadas e ocorre otimização de espaços.
+
+### Exemplo 1:
+
+Neste primeiro exemplo será realizado um download do ubuntu e apos isso o repositório será atualizado, e na seququencia o ubuntu será instalado.
 
 ``` vim
 FROM ubuntu
@@ -175,7 +180,7 @@ RUN apt install curl --yes
 Criar a imagem:
 
 ``` bash
-docker container build -t fabiocaettano74/ubuntu-with-curl:v2 .
+docker container build -t ubuntu-with-curl:v2 .
 ``` 
 
 Para visualizar as imagens:
@@ -184,23 +189,22 @@ Para visualizar as imagens:
 docker image ls
 ```
 
-Exemplo 2:
+### Exemplo 2:
 
-Será incluido a instrução ára instalar o vim.
-Observer que as camadas serão reaproveitadas até chegar o ponto de instalação do vim.
+Será incluido a instrução pra instalar o vim.
+Observe que as camadas serão reaproveitadas até chegar o ponto de instalação do vim.
 
 ``` vim
 FROM ubuntu
 RUN apt update
 RUN apt install curl --yes
 RUN apt install vim --yes 
-
 ```
 
 Criar a imagem:
 
 ``` bash
-docker container build -t fabiocaettano74/ubuntu-with-curl:v3 .
+docker container build -t ubuntu-with-curl:v3 .
 ```
 
 Para visualizar as imagens:
@@ -211,10 +215,20 @@ docker image ls
 
 
 
-Exemplo 3:
+### Exemplo 3:
 
-Observe que a criação da imagem será muito mais rápida:
+Observe que a criação da imagem será muito mais rápida, devido o reaproveitamento das camadas:
 
 ``` bash
-docker container build -t fabiocaettano74/ubuntu-with-curl:v4 .
+docker container build -t ubuntu-with-curl:v4 .
 ```
+
+### Exemplo 4: 
+
+Mas a casos que é necessário não reaproveitar as camadas, ou seja não utilizar o cache.
+
+```
+docker build -t ubunutu-with-curl:v5 . --no-cache
+```
+
+
