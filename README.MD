@@ -154,7 +154,67 @@ docker container ls
 docker-container rm -f idDoContainer
 ```
 
+## DockerFile
+
+O dDockerfile é como se fosse uma receita.
+O FROM sinaliza qual imagem vai ser criada.
+O RUN executa comandos no bash do container.
+Cada linha é uma camada, assim a um reaproveitamento do Docker ao criar nova imagens com base nesse DockerFile.
+Otimização de espaços pois aquilo que foi construido.
+Mas se houver alteração na instruções do Dockerfile, a partir daquele ponto será criado novas camadas.
+
+Exemplo 1:
+
+``` vim
+FROM ubuntu
+RUN apt update
+RUN apt install curl --yes
+
+```
+
+Criar a imagem:
+
+``` bash
+docker container build -t fabiocaettano74/ubuntu-with-curl:v2 .
+``` 
+
+Para visualizar as imagens:
+
+``` bash
+docker image ls
+```
+
+Exemplo 2:
+
+Será incluido a instrução ára instalar o vim.
+Observer que as camadas serão reaproveitadas até chegar o ponto de instalação do vim.
+
+``` vim
+FROM ubuntu
+RUN apt update
+RUN apt install curl --yes
+RUN apt install vim --yes 
+
+```
+
+Criar a imagem:
+
+``` bash
+docker container build -t fabiocaettano74/ubuntu-with-curl:v3 .
+```
+
+Para visualizar as imagens:
+
+``` bash
+docker image ls
+```
 
 
 
+Exemplo 3:
 
+Observe que a criação da imagem será muito mais rápida:
+
+``` bash
+docker container build -t fabiocaettano74/ubuntu-with-curl:v4 .
+```
