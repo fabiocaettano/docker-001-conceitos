@@ -319,6 +319,66 @@ docker push fabiocaettano74/ubuntu-with-curl:v6
 ```
 
 
+## Exemplo com Node
 
+Clone do projeto:
 
+``` bash
+git clone https://github.com/fabiocaettano/docker-001-conceitos.git
+cd docker-001-conceitos
+``` 
+
+DockerFile para criar um image node:
+
+``` bash
+touch Dockerfile
+```
+
+No Dockerfile é uma boa prática versionar a imagem:
+
+``` dockerfile
+FROM node:16.15.0
+WORKDIR /app
+COPY ./package*.json ./
+RUN npm install
+COPY . .
+EXPOSE 8080
+CMD ["node","server.js"]
+```
+
+Dockeignore:
+
+Criar o arquivo:
+```
+touch .dockerignore
+```
+
+Na construção da imagem não copiar a pasta node_modules:
+
+``` vim
+node_modules\
+```
+
+Criar a imagem:
+``` bash
+docker build -t fabiocaettano74/conversao-temperatura:v11 -f Dockerfile
+```
+
+ou
+
+``` bash
+docker build -t fabiocaettano74/conversao-temperatura:v11 .
+```
+
+Expor a aplicação:
+
+``` bash
+docker container run -d -p 8080:8080 fabiocaettano74/conversao-temperatura:v11
+```
+
+Acessar aplicação:
+
+``` http
+http://ipDaVm:8080
+```
 
