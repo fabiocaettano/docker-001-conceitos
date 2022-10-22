@@ -231,4 +231,19 @@ Mas a casos que é necessário não reaproveitar as camadas, ou seja não utiliz
 docker build -t ubunutu-with-curl:v5 . --no-cache
 ```
 
+### Exemplo 5:
 
+A casos que é melhor utilizados os comandos de forma combinada:
+
+``` Dockerfile
+FROM ubuntu
+RUN apt update && \
+    apt install curl --yes && \
+    apt install vim --yes	
+```
+
+Executar:
+
+```
+docker build -t ubuntu-with-curl:v6 .
+```
