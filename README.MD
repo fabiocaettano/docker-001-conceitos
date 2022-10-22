@@ -79,6 +79,14 @@ Excluindo:
 docker container rm -f $(docker container ls -aq)
 ```
 
+Excluindo containers que não estão sendo utilizados:
+
+``` bash
+docker containe prune
+```
+
+
+
 
 ## Modo Interativo e Execução
 
@@ -247,3 +255,26 @@ Executar:
 ```
 docker build -t ubuntu-with-curl:v6 .
 ```
+
+
+## Excluindo Imagens
+
+Exemplos para excluir imagens:
+
+``` bash
+docker image rm idDaImagem
+docker image rm -f idDaImagem
+docker image rm -f $(docker image ls -aq)
+```
+
+Excluindo imagens não utilizadas:
+
+```
+docker image prune
+```
+
+
+## Docker Register
+
+
+
