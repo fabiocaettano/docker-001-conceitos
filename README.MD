@@ -276,5 +276,49 @@ docker image prune
 
 ## Docker Register
 
+As imagens construidas até então foram localmente.
+Através do Docker Register é possivel subir esta imagem em repositório.
+Com isso a imagem pode ser acessada de outros locais.
+
+Criar uma conta no [Site do Dockeer Register](https://hub.docker.com/
+
+Para subir a imagem para o repositorio terá o seguinte padrão:
+namespace / repositorio : tag
+
+namespace =  fabiocaettano74
+repositorio = ubuntu-with-curl
+tag = v6
+
+O namespace é o usuário criado no site do DockerHub.
+O repositorio e a tag é o usuario que define.
+Se a tag não for informada será consideraa a versão "latest".
+
+Ficaria:
+fabiocaettano74/ubunutu-with-curl:v6
+
+### Autenticando
+
+Para subir a imagem para o repositório é necessário autenticar-se no Docker:
+
+``` bash
+docker login
+```
+
+### tag
+
+Versionado a imageem para o docker register.
+
+``` bash
+docker tag ubuntu-with-curl:v6 fabiocaettano74/ubuntu-with-curl:v6
+```
+
+### push
+
+``` bash
+docker push fabiocaettano74/ubuntu-with-curl:v6
+```
+
+
+
 
 
